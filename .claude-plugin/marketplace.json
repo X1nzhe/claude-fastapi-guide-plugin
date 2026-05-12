@@ -8,7 +8,7 @@
   "plugins": [
     {
       "name": "claude-fastapi-guide-plugin",
-      "source": ".",
+      "source": "./",
       "description": "Read-only guided exploration of the FastAPI framework source"
     }
   ]
