@@ -1,7 +1,10 @@
 {
   "name": "xinzheyuan-marketplace",
   "description": "Personal Claude Code plugin marketplace",
-  "owner": "xinzheyuan",
+  "owner": {
+    "name": "xinzheyuan",
+    "url": "https://github.com/X1nzhe"
+  },
   "plugins": [
     {
       "name": "claude-fastapi-guide-plugin",
