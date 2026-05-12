@@ -1,0 +1,8 @@
+{
+  "name": "claude-fastapi-guide-plugin",
+  "version": "0.1.0",
+  "description": "Read-only guided exploration of the FastAPI framework source via skills and a code-exploration subagent.",
+  "author": {
+    "name": "Xinzhe Yuan"
+  }
+}

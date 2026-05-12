@@ -1,0 +1,23 @@
+{
+  "SessionStart": [
+    {
+      "hooks": [
+        {
+          "type": "command",
+          "command": "echo 'claude-fastapi-guide-plugin loaded. Skills: explain-feature, trace-data-flow, fastapi-dependencies-internals. Subagent: code-explorer.'"
+        }
+      ]
+    }
+  ],
+  "PostToolUse": [
+    {
+      "matcher": "Read",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "mkdir -p ./notes && echo \"$(date -Iseconds) READ $TOOL_FILE\" >> ./notes/exploration-log.txt"
+        }
+      ]
+    }
+  ]
+}

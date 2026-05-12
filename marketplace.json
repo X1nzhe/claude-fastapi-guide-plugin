@@ -1,0 +1,12 @@
+{
+  "name": "xinzheyuan-marketplace",
+  "description": "Personal Claude Code plugin marketplace",
+  "owner": "xinzheyuan",
+  "plugins": [
+    {
+      "name": "claude-fastapi-guide-plugin",
+      "source": ".",
+      "description": "Read-only guided exploration of the FastAPI framework source"
+    }
+  ]
+}
