@@ -29,23 +29,26 @@ Reply with this structure:
 
 Use markdown links: `[fastapi/routing.py:412](fastapi/routing.py#L412)`. Every concrete claim needs a citation.
 
-## Files to read first
+## Where to look first (by question)
 
-Start from [CLAUDE.md](CLAUDE.md) — the "Where to look first" table maps common questions to entry files. For DI questions also read [fastapi/dependencies/CLAUDE.md](fastapi/dependencies/CLAUDE.md).
+| Question | Start here |
+|----------|-----------|
+| How does a request flow end-to-end? | `fastapi/applications.py` → `fastapi/routing.py` `APIRoute.get_route_handler` → `fastapi/dependencies/utils.py` `solve_dependencies` |
+| How are `Query` / `Path` / `Body` parsed? | `fastapi/params.py` + `fastapi/param_functions.py` + `fastapi/dependencies/utils.py::analyze_param` |
+| How does dependency resolution / caching work? | `fastapi/dependencies/utils.py` `solve_dependencies`, `get_dependant` |
+| How is the OpenAPI schema produced? | `fastapi/openapi/utils.py` `get_openapi`; models in `fastapi/openapi/models.py` |
+| How does response serialization decide a model? | `fastapi/routing.py` `serialize_response` + `fastapi/encoders.py` `jsonable_encoder` |
+| Where is auth wired? | `fastapi/security/` (entry: `security/__init__.py`) |
+| Pydantic v1 vs v2 differences? | `fastapi/_compat/` (`shared.py`, `v2.py`) |
+| Is there already a test for X? | `tests/test_<feature>.py` mirror `fastapi/` modules; `grep -r "<symbol>" tests/` |
+| How does `TestClient` work? | `fastapi/testclient.py` (re-export) + Starlette docs |
 
-Common entry points by topic:
+If no row fits, `grep -rn "<symbol>" fastapi/` for the user's exact symbol.
 
-- Request flow / routing → [fastapi/applications.py](fastapi/applications.py), [fastapi/routing.py](fastapi/routing.py)
-- Dependency injection → [fastapi/dependencies/utils.py](fastapi/dependencies/utils.py), [fastapi/dependencies/models.py](fastapi/dependencies/models.py)
-- Parameter parsing (`Query`, `Path`, `Body`, …) → [fastapi/params.py](fastapi/params.py), [fastapi/param_functions.py](fastapi/param_functions.py)
-- OpenAPI generation → [fastapi/openapi/utils.py](fastapi/openapi/utils.py)
-- Response serialization → [fastapi/routing.py](fastapi/routing.py) `serialize_response`, [fastapi/encoders.py](fastapi/encoders.py)
-- Pydantic v1/v2 differences → [fastapi/_compat/](fastapi/_compat/)
-- Security / auth → [fastapi/security/](fastapi/security/)
 
 ## Workflow
 
-1. **Map the question to an entry file** using the "Where to look first" table. If no row fits, `grep -rn "<symbol>" fastapi/` for the user's exact symbol.
+1. **Map the question to an entry file** using the table above. If no row fits, `grep -rn "<symbol>" fastapi/` for the user's exact symbol.
 2. **Read the entry file end-to-end.** Don't trust class names — read the body. Note the public surface.
 3. **Follow the call graph one hop at a time.** For each cross-module call, read just the callee. Stop at Starlette, Pydantic, or `_compat` boundaries — name the boundary, don't dive in.
 4. **Verify with a test.** `grep -rln "<symbol>" tests/` for at least one test that exercises the feature. Cite it so the reader can run it.
@@ -61,6 +64,5 @@ Common entry points by topic:
 
 ## See also
 
-- [CLAUDE.md](CLAUDE.md) — root project guide
-- [fastapi/dependencies/CLAUDE.md](fastapi/dependencies/CLAUDE.md) — nested guide for DI
 - `skills/trace-data-flow/SKILL.md` — sibling skill for end-to-end request traces (use when the user names a concrete request rather than a feature)
+- `skills/fastapi-dependencies-internals/SKILL.md` — DI-internals-specific guidance

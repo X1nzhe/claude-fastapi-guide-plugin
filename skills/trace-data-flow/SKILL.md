@@ -46,7 +46,6 @@ The canonical pipeline (skip stages that don't apply to the user's request):
 - [fastapi/dependencies/utils.py](fastapi/dependencies/utils.py) — `solve_dependencies`, `request_params_to_args`, `request_body_to_args`
 - [fastapi/dependencies/models.py](fastapi/dependencies/models.py) — what `get_dependant` produced at startup
 - [fastapi/encoders.py](fastapi/encoders.py) — `jsonable_encoder`
-- [fastapi/dependencies/CLAUDE.md](fastapi/dependencies/CLAUDE.md) — two-phase build/solve, dispatch table for callable shapes
 
 ## Workflow
 
@@ -70,5 +69,4 @@ The canonical pipeline (skip stages that don't apply to the user's request):
 ## See also
 
 - `skills/explain-feature/SKILL.md` — sibling skill for static feature explanations
-- [fastapi/dependencies/CLAUDE.md](fastapi/dependencies/CLAUDE.md) — execution dispatch table (async-gen / sync-gen / coroutine / sync)
-- [CLAUDE.md](CLAUDE.md) "Where to look first" table
+- `skills/fastapi-dependencies-internals/SKILL.md` — execution dispatch table (async-gen / sync-gen / coroutine / sync), two-phase build/solve pattern
